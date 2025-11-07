@@ -21,6 +21,42 @@ Terraform is an Infrastructure as Code (IaC) tool used to define and provision i
 
 2. **Versioning Complexity**: Managing state files in VCS can lead to complex versioning issues, especially when multiple team members are working on the same infrastructure.
 
+## Creating EC2 instance, S3 bucket for statefile storing and DynamoDB for statefile locking:
+
+Excecuting main.tf and initializing terraform project
+```
+provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_instance" "Ubaid" {
+  instance_type = "t2.micro"
+  ami = " ami-0360c520857e3138f" # change this
+  subnet_id = " subnet-05aff75cc18978861" # change this
+}
+
+resource "aws_s3_bucket" "s3_bucket" {
+  bucket = "Ubaid-s3-demo-xyz" # change this
+}
+
+resource "aws_dynamodb_table" "terraform_lock" {
+  name           = "terraform-lock"
+  billing_mode   = "PAY_PER_REQUEST"
+  hash_key       = "LockID"
+
+  attribute {
+    name = "LockID"
+    type = "S"
+  }
+}
+```
+
+
+<img width="701" height="265" alt="image" src="https://github.com/user-attachments/assets/df70b237-06e6-417c-9607-de9ad27fc5ef" />
+
+
+
+
 **Overcoming Disadvantages with Remote Backends (e.g., S3):**
 
 A remote backend stores the Terraform state file outside of your local file system and version control. Using S3 as a remote backend is a popular choice due to its reliability and scalability. Here's how to set it up:
