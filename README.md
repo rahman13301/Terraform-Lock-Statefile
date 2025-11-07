@@ -69,7 +69,12 @@ resource "aws_dynamodb_table" "terraform_lock" {
 
 **We can see terraform state file exists in the local workspace, this project is to move the state file into s3 bucket, because it conatains sensitive information**
 
-<img width="1063" height="553" alt="image" src="https://github.com/user-attachments/assets/49e05210-59e2-4a4b-9f8f-e4b9e0b15215" />
+<img width="1008" height="339" alt="image" src="https://github.com/user-attachments/assets/ee221453-959b-49da-96f3-debc08312e02" />
+
+## We need to initialize the project with backend.tf only by commenting main.tf as shown below.
+
+<img width="1348" height="901" alt="image" src="https://github.com/user-attachments/assets/335be4d4-3533-4f6d-aff0-0bfa78ace120" />
+
 
 **Now initializing project with backend.tf and we can see statefile is stored in S3 bucket instead of storing in local workspace**
 
