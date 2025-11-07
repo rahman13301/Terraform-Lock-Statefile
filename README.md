@@ -31,7 +31,7 @@ provider "aws" {
 
 resource "aws_instance" "Ubaid" {
   instance_type = "t2.micro"
-  ami = " ami-0360c520857e3138f" # change this
+  ami = "ami-0ecb62995f68bb549" # change this
   subnet_id = " subnet-05aff75cc18978861" # change this
 }
 
