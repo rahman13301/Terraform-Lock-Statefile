@@ -36,7 +36,7 @@ resource "aws_instance" "Ubaid" {
 }
 
 resource "aws_s3_bucket" "s3_bucket" {
-  bucket = "Ubaid-s3-demo-xyz" # change this
+  bucket = "ubaid-s3-demo-abc" # change this
 }
 
 resource "aws_dynamodb_table" "terraform_lock" {
@@ -66,8 +66,6 @@ resource "aws_dynamodb_table" "terraform_lock" {
 
 <img width="1283" height="268" alt="image" src="https://github.com/user-attachments/assets/b7612287-a02e-434b-afb9-9d96a81f99d3" />
 
-
-<img width="1457" height="262" alt="image" src="https://github.com/user-attachments/assets/e103ce29-3c1f-4ee1-81ec-af826a4a326c" />
 
 **We can see terraform state file exists in the local workspace, this project is to move the state file into s3 bucket, because it conatains sensitive information**
 
