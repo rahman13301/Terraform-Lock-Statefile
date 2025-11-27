@@ -76,6 +76,19 @@ resource "aws_dynamodb_table" "terraform_lock" {
 <img width="1348" height="901" alt="image" src="https://github.com/user-attachments/assets/335be4d4-3533-4f6d-aff0-0bfa78ace120" />
 
 
+## In your Terraform configuration file (e.g., main.tf), define the remote backend.
+```
+terraform {
+  backend "s3" {
+    bucket         = "your-terraform-state-bucket"
+    key            = "path/to/your/terraform.tfstate"
+    region         = "us-east-1" # Change to your desired region
+    encrypt        = true
+    dynamodb_table = "your-dynamodb-table"
+  }
+}
+```
+
 **Now initializing project with backend.tf and we can see statefile is stored in S3 bucket instead of storing in local workspace**
 
 <img width="987" height="301" alt="image" src="https://github.com/user-attachments/assets/6189c7a7-dedc-4a71-8d30-a193f366d505" />
@@ -145,35 +158,3 @@ By following these steps, you can securely store your Terraform state in S3 with
 
 5. Follow the prompts to configure your bucket. Ensure that the appropriate permissions are set.
 
-## Configure Terraform Remote Backend
-
-1. In your Terraform configuration file (e.g., `main.tf`), define the remote backend:
-
-   ```hcl
-   terraform {
-     backend "s3" {
-       bucket         = "your-terraform-state-bucket"
-       key            = "path/to/your/terraform.tfstate"
-       region         = "us-east-1" # Change to your desired region
-       encrypt        = true
-       dynamodb_table = "your-dynamodb-table"
-     }
-   }
-   ```
-
-   Replace `"your-terraform-state-bucket"` and `"path/to/your/terraform.tfstate"` with your S3 bucket and desired state file path.
-
-2. Create a DynamoDB Table for State Locking:
-
-   ```sh
-   aws dynamodb create-table --table-name your-dynamodb-table --attribute-definitions AttributeName=LockID,AttributeType=S --key-schema AttributeName=LockID,KeyType=HASH --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
-   ```
-
-   Replace `"your-dynamodb-table"` with the desired DynamoDB table name.
-
-3. Configure the DynamoDB table name in your Terraform backend configuration, as shown in step 1.
-
-By following these steps, you can securely store your Terraform state in S3 with state locking using DynamoDB, mitigating the disadvantages of storing sensitive information in version control systems and ensuring safe concurrent access to your infrastructure.
-```
-
-Please note that you should adapt the configuration and commands to your specific AWS environment and requirements.
